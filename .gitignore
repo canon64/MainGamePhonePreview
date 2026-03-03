@@ -1,0 +1,22 @@
+﻿# Build
+bin/
+obj/
+
+# Runtime outputs
+MainGamePhonePreview.log
+shots/
+videos/
+*.png
+*.jpg
+*.jpeg
+*.mp4
+
+# Temp / backup
+*.bak
+*.pdb.next
+
+# IDE / OS
+.vs/
+*.user
+Thumbs.db
+desktop.ini

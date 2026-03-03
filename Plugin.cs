@@ -22,7 +22,7 @@ namespace MainGamePhonePreview
     {
         public const string Guid = "com.kks.maingamephonepreview";
         public const string PluginName = "MainGamePhonePreview";
-        public const string Version = "0.1.0";
+        public const string Version = "0.1.1";
 
         [Serializable]
         private sealed class PhonePreviewSettings

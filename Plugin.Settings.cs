@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using BepInEx;
 using UnityEngine;
@@ -270,12 +271,31 @@ namespace MainGamePhonePreview
         {
             try
             {
+                RoundFloatFieldsForSave(_settings);
                 string json = JsonUtility.ToJson(_settings, true);
                 File.WriteAllText(_settingsPath, json, Encoding.UTF8);
             }
             catch (Exception ex)
             {
                 LogWarn($"settings save failed: {ex.Message}");
+            }
+        }
+
+        private static void RoundFloatFieldsForSave(PhonePreviewSettings settings)
+        {
+            if (settings == null)
+                return;
+
+            FieldInfo[] fields = typeof(PhonePreviewSettings).GetFields(BindingFlags.Instance | BindingFlags.Public);
+            for (int i = 0; i < fields.Length; i++)
+            {
+                FieldInfo field = fields[i];
+                if (field.FieldType != typeof(float))
+                    continue;
+
+                float value = (float)field.GetValue(settings);
+                float rounded = (float)Math.Round(value, 3, MidpointRounding.AwayFromZero);
+                field.SetValue(settings, rounded);
             }
         }
 
